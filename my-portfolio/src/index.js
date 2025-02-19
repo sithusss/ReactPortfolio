@@ -2,17 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
-import Education from './pages/Education';
-import Intro from './pages/Intro';
+import App from './App';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Intro/>
-    <Education/>
-
+    
+  <App />
   </React.StrictMode>
 );
 
