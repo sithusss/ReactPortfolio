@@ -1,20 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Nav from './components/Nav';
+import './styles/Navbar.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        
-          Learn React
-      
-      </header>
-    </div>
+    <Router>
+      <Nav />
+
+    </Router>
   );
-}
+};
 
 export default App;
