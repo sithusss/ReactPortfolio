@@ -1,0 +1,47 @@
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Footer Left Section */
+  .footer-left p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  /* Footer Right Section */
+  .footer-right {
+    text-align: right;
+  }
+  
+  .footer-right h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #ccc;
+  }
+  
+  .tech-images {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tech-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* 100% border-radius for circular images */
+    object-fit: cover;
+    background-color: white; /* Add background color for better visibility */
+    padding: 5px; /* Add padding for better spacing */
+    transition: transform 0.3s ease;
+  }
+  
+  .tech-img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+  }
