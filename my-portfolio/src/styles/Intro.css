@@ -87,6 +87,7 @@
   .sub-content{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
   }
   .sub-content p {
     font-size: 1rem;
@@ -99,7 +100,7 @@
   /* Image Group for each sub-section */
   .image-group {
     display: flex;
-    justify-content: space-around;
+    justify-content:space-between;
     align-items: center;
     gap: 10px;
   }
