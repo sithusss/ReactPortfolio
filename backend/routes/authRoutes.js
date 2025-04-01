@@ -1,7 +1,7 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const router = express.Router();
+import { Router } from 'express';
+import { sign } from 'jsonwebtoken';
+import User, { findOne } from '../models/User';
+const router = Router();
 
 // Register User
 router.post('/register', async (req, res) => {
@@ -19,14 +19,14 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await findOne({ email });
     if (!user) return res.status(400).json({ message: 'User not found' });
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
 
@@ -36,4 +36,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
