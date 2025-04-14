@@ -1,8 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
-const authRoutes = require('./routes/authRoutes');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import educationRoutes from './routes/educationRoutes.js';
+import categoryRoutes from './routes/eduCategoryRoutes.js';
+
+
 
 dotenv.config();
 
@@ -15,9 +19,13 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
+//mongoose.connect('mongodb://localhost:27017/portfolio');
+
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/education', educationRoutes);
+app.use('/api/edu-categories', categoryRoutes);
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
