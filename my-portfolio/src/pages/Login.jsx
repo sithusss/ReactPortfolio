@@ -8,24 +8,44 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // ✏️ Changes in handleSubmit
 
-    // Basic validation
-    if (!email || !password) {
-      setError('Please fill in all fields.');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Basic validation
+  if (!email || !password) {
+    setError('Please fill in all fields.');
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || 'Login failed');
       return;
     }
 
-    // Simulate login (replace with actual API call)
-    if (email === 'admin@example.com' && password === 'password') {
-      setError('');
-      alert('Login successful!');
-      navigate('/admin'); // Redirect to admin page after login
-    } else {
-      setError('Invalid email or password.');
-    }
-  };
+    // Save token (optional)
+    localStorage.setItem('token', data.token);
+
+    setError('');
+    alert('Login successful!');
+    navigate('/admin');
+  } catch (err) {
+    setError('Something went wrong. Please try again.');
+  }
+};
+
 
   return (
     <div className="login-container">

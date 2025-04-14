@@ -1,39 +1,38 @@
 import { Router } from 'express';
-import { sign } from 'jsonwebtoken';
-import User, { findOne } from '../models/User';
+import jwt from 'jsonwebtoken';
+import { compare } from 'bcryptjs'; // For hashing comparison
+
+const { sign, verify } = jwt;
 const router = Router();
 
-// Register User
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = new User({ email, password });
-    await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    res.status(400).json({ message: 'Error registering user', error: err.message });
-  }
-});
+// Hardcoded user
+const hardcodedUser = {
+  email: 'sithumanisandali@gmail.com',
+  // This is a bcrypt hash of the pw
+  password: '$2b$10$ilCWq7ClCW5SlZCpz40PPOpW3YfTae5Rz7WtJ3LQY6R3tMGK.TWiS'
+};
 
-// Login User
+// Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  try {
-    const user = await findOne({ email });
-    if (!user) return res.status(400).json({ message: 'User not found' });
 
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
-
-    // Generate JWT
-    const token = sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    res.json({ token });
-  } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message });
+  // Check email
+  if (email !== hardcodedUser.email) {
+    return res.status(400).json({ message: 'Invalid email' });
   }
+
+  // Compare password using bcrypt
+  const isMatch = await compare(password, hardcodedUser.password);
+  if (!isMatch) {
+    return res.status(400).json({ message: 'Invalid password' });
+  }
+
+  // Generate JWT
+  const token = sign({ email }, process.env.JWT_SECRET || 'your-secret', {
+    expiresIn: '1h',
+  });
+
+  res.json({ token });
 });
 
 export default router;

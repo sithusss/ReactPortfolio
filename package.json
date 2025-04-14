@@ -1,0 +1,26 @@
+{
+  "name": "reactportfolio",
+  "version": "1.0.0",
+  "description": "My portfolio using reactjs,nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && nodemon server.js",
+    "client": "cd my-portfolio && npm start"
+}
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sithusss/ReactPortfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sithusss/ReactPortfolio/issues"
+  },
+  "homepage": "https://github.com/sithusss/ReactPortfolio#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
