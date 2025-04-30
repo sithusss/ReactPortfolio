@@ -5,6 +5,10 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Intro from './pages/Intro';
 import Admin from './pages/Admin';
+import Education from './pages/Education'; 
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+
 import './styles/Navbar.css';
 
 const App = () => {
@@ -18,6 +22,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Intro />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
 
           </Routes>
         <Footer />
