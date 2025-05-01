@@ -4,15 +4,26 @@ const router = express.Router();
 
 // Get all educations
 router.get('/', async (req, res) => {
-  const edu = await Education.find().populate('category');
-  res.json(edu);
+  try {
+    const edu = await Education.find();
+    res.json(edu);
+  } catch (err) {
+    console.error('Error fetching educations:', err);
+    res.status(500).json({ error: 'Failed to fetch educations' });
+  }
 });
 
+
 // Create new education
+// In your backend routes (educationRoutes.js)
 router.post('/', async (req, res) => {
-  const newEdu = new Education(req.body);
-  await newEdu.save();
-  res.status(201).json(newEdu);
+  try {
+    const newEdu = new Education(req.body);
+    await newEdu.save();
+    res.status(201).json(newEdu); // 201 = Created
+  } catch (err) {
+    res.status(400).json({ message: err.message }); // 400 = Bad Request
+  }
 });
 
 // Update education

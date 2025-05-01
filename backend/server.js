@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import educationRoutes from './routes/educationRoutes.js';
-import categoryRoutes from './routes/eduCategoryRoutes.js';
+
 
 
 
@@ -25,7 +25,7 @@ connectDB();
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/education', educationRoutes);
-app.use('/api/edu-categories', categoryRoutes);
+
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

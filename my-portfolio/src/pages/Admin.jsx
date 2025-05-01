@@ -5,8 +5,7 @@ import '../styles/Admin.css';
 export default function AdminPanel() {
   const [educations, setEducations] = useState([]);
   const [formData, setFormData] = useState({
-    eduId: '',
-    categoryNo: '',
+    category: '',
     name: '',
     institute: '',
     period: '',
@@ -15,8 +14,12 @@ export default function AdminPanel() {
   const [editingId, setEditingId] = useState(null);
 
   const fetchEducations = async () => {
-    const res = await axios.get('/api/education');
-    setEducations(res.data);
+    try {
+      const res = await axios.get('http://localhost:5000/api/education');
+      setEducations(res.data);
+    } catch (err) {
+      console.error('Error fetching educations:', err);
+    }
   };
 
   useEffect(() => {
@@ -29,34 +32,64 @@ export default function AdminPanel() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingId) {
-      await axios.put(`/api/education/update/${editingId}`, formData);
-      setEditingId(null);
-    } else {
-      await axios.post('/api/education', formData);
+    try {
+      // Only handle new education creation
+      await axios.post('http://localhost:5000/api/education', formData);
+      
+      // Reset form and refresh data
+      setFormData({ 
+        category: '', 
+        name: '', 
+        institute: '', 
+        period: '', 
+        description: '' 
+      });
+      fetchEducations();
+      
+      alert('Education added successfully!');
+    } catch (err) {
+      console.error('Error:', err.response?.data || err.message);
+      alert(`Add failed: ${err.response?.data?.message || err.message}`);
     }
-    setFormData({ eduId: '', categoryNo: '', name: '', institute: '', period: '', description: '' });
-    fetchEducations();
   };
-
-  const handleEdit = (edu) => {
-    setFormData(edu);
-    setEditingId(edu._id);
+  
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      // Handle only updates
+      await axios.put(`http://localhost:5000/api/education${editingId}`, formData);
+      
+      // Reset form and refresh data
+      setFormData({ 
+        category: '', 
+        name: '', 
+        institute: '', 
+        period: '', 
+        description: '' 
+      });
+      setEditingId(null);
+      fetchEducations();
+      
+      alert('Education updated successfully!');
+    } catch (err) {
+      console.error('Error:', err.response?.data || err.message);
+      alert(`Update failed: ${err.response?.data?.message || err.message}`);
+    }
   };
-
   const handleDelete = async (id) => {
-    await axios.delete(`/api/education/delete/${id}`);
-    fetchEducations();
+    try {
+      await axios.delete(`http://localhost:5000/api/education${id}`);
+      fetchEducations();
+    } catch (err) {
+      console.error('Error deleting education:', err);
+    }
   };
 
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios.get('/api/edu-categories')
-      .then(res => setCategories(res.data))
-      .catch(err => console.error(err));
-  }, []);
-
+  const categoryOptions = [
+    'Higher Education',
+    'Education',
+    'Courses & Certifications'
+  ];
 
   return (
     <div className="admin-container">
@@ -65,6 +98,13 @@ export default function AdminPanel() {
       <form onSubmit={handleSubmit} className="admin-form">
         <h3 className="form-title">{editingId ? 'Edit Education' : 'Add New Education'}</h3>
         <div className="form-grid">
+          <select name="category" value={formData.category} onChange={handleChange} required>
+            <option value="">Select a Category</option>
+            {categoryOptions.map((cat, index) => (
+              <option key={index} value={cat}>{cat}</option>
+            ))}
+          </select>
+
           {['name', 'institute', 'period', 'description'].map((field) => (
             <input
               key={field}
@@ -75,17 +115,7 @@ export default function AdminPanel() {
               onChange={handleChange}
               required
             />
-            
           ))}
-          <select name="category" value={formData.category} onChange={handleChange}>
-            <option value="">Select a Category</option>
-            {categories.map(cat => (
-              <option key={cat._id} value={cat._id}>
-                {cat.catName}
-              </option>
-            ))}
-          </select>
-
         </div>
         <button type="submit" className="submit-btn">
           {editingId ? 'Update' : 'Add'} Education
@@ -106,20 +136,21 @@ export default function AdminPanel() {
             </tr>
           </thead>
           <tbody>
-            {educations.map((edu) => (
-              <tr key={edu._id}>
-                <td>{edu.eduId}</td>
-                <td>{edu.categoryNo}</td>
-                <td>{edu.name}</td>
-                <td>{edu.institute}</td>
-                <td>{edu.period}</td>
-                <td>
-                  <button onClick={() => handleEdit(edu)} className="edit-btn">Edit</button>
-                  <button onClick={() => handleDelete(edu._id)} className="delete-btn">Delete</button>
-                </td>
-              </tr>
-            ))}
-            {educations.length === 0 && (
+            {educations.length > 0 ? (
+              educations.map((edu) => (
+                <tr key={edu._id}>
+                  <td>{edu.eduId}</td>
+                  <td>{edu.category}</td>
+                  <td>{edu.name}</td>
+                  <td>{edu.institute}</td>
+                  <td>{edu.period}</td>
+                  <td>
+                    <button onClick={() => handleUpdate(edu)} className="edit-btn">Edit</button>
+                    <button onClick={() => handleDelete(edu._id)} className="delete-btn">Delete</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr><td colSpan="6" className="no-data">No data found</td></tr>
             )}
           </tbody>
