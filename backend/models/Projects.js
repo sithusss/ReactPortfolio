@@ -6,7 +6,10 @@ const projectSchema = new mongoose.Schema({
   name: { type: String, required: true },
   technologies: { type: String, required: true },
   period: { type: String, required: true },
-  description: { type: String }
+  description: { type: String },
+  githubLink: { type: String },
+  liveLink: { type: String },
+  media: { type: String },
 });
 
 projectSchema.pre('save', async function (next) {

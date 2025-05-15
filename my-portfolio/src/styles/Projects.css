@@ -1,9 +1,13 @@
+/* Existing container */
 .projects-container {
+    max-width: 1200px;
     padding: 40px;
+    margin: auto;
     font-family: 'Arial', sans-serif;
     background-color: #f1f1f1;
     min-height: 100vh;
   }
+
   
   .projects-container h1 {
     font-size: 36px;

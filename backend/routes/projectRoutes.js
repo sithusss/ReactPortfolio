@@ -1,6 +1,31 @@
 import express from 'express';
+import multer from 'multer';
 import Projects from '../models/Projects.js';
+import path from 'path';
+import fs from 'fs';
+
+
 const router = express.Router();
+
+// Create uploads directory if it doesn't exist
+const uploadDir = 'uploads/';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Storage config
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${ext}`;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
 
 // Get all educations
 router.get('/', async (req, res) => {
@@ -14,28 +39,48 @@ router.get('/', async (req, res) => {
 });
 
 
-// Create new education
-// In your backend routes (educationRoutes.js)
-router.post('/', async (req, res) => {
+// CREATE project (POST)
+router.post('/', upload.single('media'), async (req, res) => {
   try {
-    const newPro = new Projects(req.body);
+    const newPro = new Projects({
+      ...req.body,
+      media: req.file ? `/uploads/${req.file.filename}` : null,
+    });
     await newPro.save();
-    res.status(201).json(newPro); // 201 = Created
+    res.status(201).json(newPro);
   } catch (err) {
-    res.status(400).json({ message: err.message }); // 400 = Bad Request
+    console.error('Error saving project:', err);
+    res.status(400).json({ message: err.message });
   }
 });
 
-// Update education
-router.put('/:id', async (req, res) => {
-  const updatedPro = await Projects.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(updatedPro);
+// UPDATE project (PUT)
+router.put('/:id', upload.single('media'), async (req, res) => {
+  try {
+    const updateData = { ...req.body };
+    if (req.file) {
+      updateData.media = `/uploads/${req.file.filename}`;
+    }
+    const updatedPro = await Projects.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    res.json(updatedPro);
+  } catch (err) {
+    console.error('Error updating project:', err);
+    res.status(400).json({ message: err.message });
+  }
 });
 
-// Delete education
+// DELETE project (DELETE)
 router.delete('/:id', async (req, res) => {
-  await Projects.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Deleted successfully' });
+  try {
+    await Projects.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting project:', err);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;
+
+
+
