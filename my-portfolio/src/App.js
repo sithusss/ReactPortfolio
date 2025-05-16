@@ -9,6 +9,7 @@ import Education from './pages/Education';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import AdminProjecPanel from './components/AdminProjectPanel';
+import Messages from './components/Messages';
 
 import './styles/Navbar.css';
 
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin-project-panel" element={<AdminProjecPanel />} />
+            <Route path="/messages" element={<Messages />} />
 
           </Routes>
         <Footer />

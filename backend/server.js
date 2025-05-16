@@ -5,6 +5,8 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import educationRoutes from './routes/educationRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
+import contactRoutes from './routes/contact.js';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -31,6 +33,7 @@ connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/education', educationRoutes);
 app.use('/api/projects', projectRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

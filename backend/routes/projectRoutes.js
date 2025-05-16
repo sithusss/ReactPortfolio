@@ -42,10 +42,16 @@ router.get('/', async (req, res) => {
 // CREATE project (POST)
 router.post('/', upload.single('media'), async (req, res) => {
   try {
+    console.log('req.file:', req.file);        // debug
+    console.log('req.body:', req.body);        // debug
+
+    const mediaPath = req.file ? `/uploads${req.file.filename}` : null;
+
     const newPro = new Projects({
       ...req.body,
-      media: req.file ? `/uploads/${req.file.filename}` : null,
+      media: mediaPath,
     });
+
     await newPro.save();
     res.status(201).json(newPro);
   } catch (err) {
@@ -53,6 +59,7 @@ router.post('/', upload.single('media'), async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
 
 // UPDATE project (PUT)
 router.put('/:id', upload.single('media'), async (req, res) => {
