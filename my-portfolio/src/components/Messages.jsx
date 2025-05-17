@@ -1,36 +1,42 @@
+// ==== React Component: Messages.jsx ====
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/Messages.css'; // for styling
+import '../styles/Messages.css';
+import { FaEnvelopeOpenText } from 'react-icons/fa';
 
 const Messages = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
+  const [readMessages, setReadMessages] = useState([]);
 
-useEffect(() => {
-  const fetchMessages = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/contact');
-      const unreadMessages = res.data.filter(msg => msg.status !== 'read');
-      setMessages(unreadMessages);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/contact');
+        const unread = res.data.filter(msg => msg.status !== 'read');
+        const read = res.data.filter(msg => msg.status === 'read');
+        setMessages(unread);
+        setReadMessages(read);
+      } catch (err) {
+        console.error("Error fetching messages", err);
+      }
+    };
 
-    } catch (err) {
-      console.error("Error fetching messages", err);
-    }
-  };
-
-  fetchMessages();
-}, []);
-
-
+    fetchMessages();
+  }, []);
 
   const handleMarkAsRead = async (id) => {
-  try {
-    await axios.put(`http://localhost:5000/api/contact/${id}/read`);
-    setMessages(messages.filter(msg => msg._id !== id));
-  } catch (err) {
-    console.error('Error marking message as read', err);
-  }
-};
-
+    try {
+      await axios.put(`http://localhost:5000/api/contact/${id}/read`);
+      const updatedMsg = messages.find(msg => msg._id === id);
+      if (updatedMsg) {
+        updatedMsg.status = 'read';
+        setMessages(prev => prev.filter(msg => msg._id !== id));
+        setReadMessages(prev => [...prev, updatedMsg]);
+      }
+    } catch (err) {
+      console.error('Error marking message as read', err);
+    }
+  };
 
   return (
     <div className="modal-backdrop">
@@ -54,17 +60,41 @@ useEffect(() => {
                 <td>{msg.message}</td>
                 <td>{new Date(msg.createdAt).toLocaleString()}</td>
                 <td>
-                    <button onClick={() => handleMarkAsRead(msg._id)} className="delete-btn">Read</button>
+                  <button onClick={() => handleMarkAsRead(msg._id)} className="read-btn">
+                    <FaEnvelopeOpenText />
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        <h2>✅ Read Messages</h2>
+        <table className="messages-table read">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Read At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {readMessages.map((msg) => (
+              <tr key={msg._id}>
+                <td>{msg.name}</td>
+                <td>{msg.email}</td>
+                <td>{msg.message}</td>
+                <td>{new Date(msg.updatedAt).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         <div className="messages-actions">
           <button type="button" className="cancel-btn" onClick={onClose}>Close</button>
         </div>
       </div>
-        
     </div>
   );
 };
