@@ -228,3 +228,19 @@ body{
   background-color: #434343;
 }
 
+.messages-btn{
+  width: 50px;
+  background-color: #0fab00;
+  color: white;
+  padding: 10px;
+  margin: 15px;;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  float: right;
+}
+
+.messages-btn:hover {
+  background-color: #0a8b00;
+}
