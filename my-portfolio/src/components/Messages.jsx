@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/Messages.css';
 import { FaEnvelopeOpenText } from 'react-icons/fa';
+import { FaDeleteLeft } from 'react-icons/fa6';
 
 const Messages = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -38,9 +39,21 @@ const Messages = ({ onClose }) => {
     }
   };
 
+  const handleDelete =async(id) => { 
+    try {
+      await axios.delete(`http://localhost:5000/api/contact/${id}`);
+      setReadMessages(prev => prev.filter(msg => msg._id !== id));
+    } catch (err) {
+      console.error('Error deleting message', err);
+    }
+   };
+
   return (
     <div className="modal-backdrop">
       <div className="messages-container modal">
+        <div className="messages-actions">
+          <button type="button" className="cancel-btn" onClick={onClose}><FaDeleteLeft /></button>
+        </div>
         <h2>📩 Received Messages</h2>
         <table className="messages-table">
           <thead>
@@ -49,7 +62,7 @@ const Messages = ({ onClose }) => {
               <th>Email</th>
               <th>Message</th>
               <th>Created At</th>
-              <th>Actions</th>
+              <th>Read</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +90,7 @@ const Messages = ({ onClose }) => {
               <th>Email</th>
               <th>Message</th>
               <th>Read At</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -86,14 +100,16 @@ const Messages = ({ onClose }) => {
                 <td>{msg.email}</td>
                 <td>{msg.message}</td>
                 <td>{new Date(msg.updatedAt).toLocaleString()}</td>
+                <td>
+                  <button onClick={() => handleDelete(msg._id)} className="delete-btn">
+                    <FaDeleteLeft/>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <div className="messages-actions">
-          <button type="button" className="cancel-btn" onClick={onClose}>Close</button>
-        </div>
       </div>
     </div>
   );

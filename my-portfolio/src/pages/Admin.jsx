@@ -4,6 +4,7 @@ import '../styles/Education.css';
 import '../styles/Admin.css'; // Assuming you have a CSS file for styling
 import AdminProjectPanel from '../components/AdminProjectPanel';
 import Messages from '../components/Messages'; // Import at the top
+import { FaMessage } from 'react-icons/fa6';
 
 
 
@@ -124,7 +125,7 @@ const categoryOptions = [
 
 return ( 
   <div className='main-body'>
-    <button onClick={() => setShowMessagesModal(true)} className="messages-btn">View Messages</button>
+    <button onClick={() => setShowMessagesModal(true)} className="messages-btn"><FaMessage /></button>
 
 
   <div className="admin-main-container"> 

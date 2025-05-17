@@ -131,6 +131,8 @@ export default function AdminProjectPanel() {
     'UI/UX Design',
     'QA Testing',
   ];
+  
+  const BASE_URL = 'http://localhost:5000';
 
   return (
     <div className="projects">
@@ -191,9 +193,9 @@ export default function AdminProjectPanel() {
                   <td><a href={proj.liveLink} target="_blank" rel="noreferrer">Live</a></td>
                   <td>
                     {proj.media && (proj.media.endsWith('.mp4') || proj.media.endsWith('.webm')) ? (
-                      <video src={proj.media} width="100" controls />
+                      <video src={`${BASE_URL}${proj.media}`} width="100" controls />
                     ) : (
-                      <img src={proj.media} width="100" alt="project" />
+                      <img src={`${BASE_URL}${proj.media}`} width="100" alt="project" />
                     )}
                   </td>
                   <td>
