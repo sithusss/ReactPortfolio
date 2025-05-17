@@ -1,7 +1,8 @@
 import express from 'express';
 import Contact from '../models/Contact.js';
-const router = express.Router()
+const router = express.Router();
 
+// Save message
 router.post("/", async (req, res) => {
   try {
     const newContact = new Contact(req.body);
@@ -12,6 +13,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Get all messages
 router.get('/', async (req, res) => {
   try {
     const messages = await Contact.find().sort({ createdAt: -1 });
@@ -21,15 +23,18 @@ router.get('/', async (req, res) => {
   }
 });
 
-// PUT /api/contact/:id/read
-router.put('/contact/:id/read', async (req, res) => {
+// Mark message as read
+router.put('/:id/read', async (req, res) => {
   try {
-    await Contact.findByIdAndUpdate(req.params.id, { status: 'read' });
-    res.status(200).json({ message: 'Marked as read' });
+    const updated = await Contact.findByIdAndUpdate(
+      req.params.id,
+      { status: 'read' },
+      { new: true }
+    );
+    res.status(200).json(updated);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 export default router;

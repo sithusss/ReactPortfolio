@@ -5,7 +5,7 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import educationRoutes from './routes/educationRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
-import contactRoutes from './routes/contact.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
