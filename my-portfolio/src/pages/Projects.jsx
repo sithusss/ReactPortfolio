@@ -23,12 +23,17 @@ const Projects = () => {
 
   return (
     <div className="projects-container">
-      <h1>Projects</h1>
+      <h1>P R O J E C T S </h1>
       <div className="projects-box-container">
         {projects.map((project, index) => {
           console.log("project.media:", project.media); // ✅ Log for debugging
           return (
-            <div className="projects-box" key={index}>
+            <div
+              className="projects-box"
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
               {/* Media Preview */}
               {project.media && (
                 project.media.endsWith('.mp4') || project.media.endsWith('.webm') ? (
@@ -73,6 +78,7 @@ const Projects = () => {
                 </a>
               </div>
             </div>
+
           );
         })}
       </div>

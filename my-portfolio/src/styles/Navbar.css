@@ -1,46 +1,94 @@
-/* Navbar Container */
+/* Basic Navbar Styling */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 12px 24px;
+  position: relative;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-button {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #333;
+}
+
+.navbar-right {
+  display: flex;
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background-color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Dropdown Menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 100%;
+  background-color: #1a1a1a;
+  padding: 16px 24px;
+  gap: 12px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
   }
-  
-  /* Left Side Buttons */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 885px) {
   .navbar-left {
-    display: flex;
-    gap: 15px;
+    display: none;
   }
-  
-  .nav-button {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+
+  .hamburger {
+    display: block;
   }
-  
-  .nav-button:hover {
-    background-color: #555;
-  }
-  
-  /* Right Side Login Button */
-  .navbar-right {
+
+  .mobile-menu.show {
     display: flex;
   }
-  
-  .login-button {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 5px;
-    background-color: #007bff; /* Different color for login button */
-    transition: background-color 0.3s ease;
-  }
-  
-  .login-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-  }
+}
