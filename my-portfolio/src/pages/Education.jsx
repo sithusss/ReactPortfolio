@@ -3,6 +3,8 @@ import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/Education.css';
+import backgroundImage1 from '../assets/images/bg5.jpg';
+import backgroundImage2 from '../assets/images/bg6.jpg';
 
 const Education = () => {
   const [educationData, setEducationData] = useState([]);
@@ -46,6 +48,9 @@ const Education = () => {
   return (
     <div className="edu-container">
       <h1>E D U C A T I O N</h1>
+
+      <img src={backgroundImage2} alt="Person Bottom Left" className="decorative-image3 bottom-left" />
+      <img src={backgroundImage1} alt="Person Top Right" className="decorative-image3 top-right" />
 
       {Object.keys(groupedData).map((category) => {
         const items = groupedData[category];

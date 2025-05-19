@@ -10,6 +10,7 @@ import LeadershipOne from '../assets/images/leader1.jpg';
 import LeadershipTwo from '../assets/images/leader2.jpg';
 import VolunteeringOne from '../assets/images/ieee.png';
 import VolunteeringTwo from '../assets/images/Rotaract.png';
+import backgroundImage1 from '../assets/images/bg3.png';
 import Skills from '../components/Skills'; // Import the Skills component
 
 // Initialize AOS (Animate On Scroll) library for animations
@@ -32,7 +33,7 @@ const Intro = () => {
           className="profile-image"
         />
       </div>
-
+      <img src={backgroundImage1} alt="Person Top Right" className="decorative-image1 top-right" />
       {/* Initial Details Section */}
       <div className="details-section" data-aos="fade-left">
         <h1 className="name">Sandali Liyanage</h1>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Contact.css";
+import backgroundImage1 from '../assets/images/bg1.png';
 
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaLinkedin, FaGithub, FaFacebook, FaInstagram, FaMailBulk } from "react-icons/fa";
 
@@ -32,6 +33,7 @@ const ContactPage = () => {
     <div className="contact-container">
       {/* Left Side */}
       <div className="contact-left" data-aos="fade-right">
+        <img src={backgroundImage1} alt="Person Top Right" className="decorative-image4 top-right" />
         <h1>C O N T A C T &nbsp; I N F O</h1>
 
         <div className="info-item" data-aos="fade-up" data-aos-delay="100">
