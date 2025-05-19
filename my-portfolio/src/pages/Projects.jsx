@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../styles/Projects.css';
 import axios from 'axios';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import backgroundImage1 from '../assets/images/bg2.jpg';
+import backgroundImage2 from '../assets/images/bg4.jpg';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -22,8 +24,14 @@ const Projects = () => {
   const BASE_URL = 'http://localhost:5000'; // No need to hardcode `/uploads/` if full path is stored
 
   return (
+    <div className="projects-wrapper">
+
+
     <div className="projects-container">
       <h1>P R O J E C T S </h1>
+      <img src={backgroundImage2} alt="Person Bottom Left" className="decorative-image bottom-left" />
+      <img src={backgroundImage1} alt="Person Top Right" className="decorative-image top-right" />
+      
       <div className="projects-box-container">
         {projects.map((project, index) => {
           console.log("project.media:", project.media); // ✅ Log for debugging
@@ -82,6 +90,8 @@ const Projects = () => {
           );
         })}
       </div>
+      
+    </div>
     </div>
   );
 };

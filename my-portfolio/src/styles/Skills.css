@@ -31,3 +31,28 @@
 .logo-grid img:hover {
   transform: scale(1.2);
 }
+
+@media screen and (max-width: 480px) {
+  .skills-section {
+  padding-left: 20px; /* Or use negative margin if needed */
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  justify-items: start; /* Align each box to left */
+  margin-left: -40px;    /* Moves the grid to the left */
+  max-width: 100%;       /* Prevent overflow issues */
+}
+
+.skill-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;             /* Let it stretch to fit column */
+  box-sizing: border-box;  /* Respect padding within width */
+}
+
+}
