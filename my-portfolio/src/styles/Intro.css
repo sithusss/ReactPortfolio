@@ -11,6 +11,7 @@ body {
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
+  background: linear-gradient(to right, #919fac, #f2f3f5);  /*gradient */
  
 }
 
@@ -19,7 +20,7 @@ body {
   flex: 1;
   max-width: 50%;
   position: relative;
-  clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 95%);
+  /*clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 95%);*/
   overflow: hidden;
 }
 
@@ -268,6 +269,13 @@ body {
     height: auto;
     
   }
+  .details-section {
+  padding: 16px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 
   .name {
     font-size: 2rem;
@@ -284,10 +292,12 @@ body {
   }
 
   .what-i-do-section {
-    max-width: 60%;
-    margin-left: 3.5%;
-    
-  }
+  width: 95%;
+  padding: 20px;
+  margin: 2%;
+  box-sizing: border-box;
+}
+
   .what-i-do-section h2 {
     font-size: 1.5rem;
     

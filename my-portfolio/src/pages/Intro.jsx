@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Intro.css';
 import '../styles/KeyFrames.css';
-import MyImage from'../assets/images/Sandali Liyanage.jpg';
+import MyImage from'../assets/images/Sandali Liyanage.png';
 import Karate from '../assets/images/karate.jpg';
 import Announcing from '../assets/images/announcing.jpg';
 import TechOne from '../assets/images/tech1.jpg';

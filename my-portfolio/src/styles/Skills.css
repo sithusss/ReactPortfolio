@@ -34,7 +34,10 @@
 
 @media screen and (max-width: 480px) {
   .skills-section {
-  padding-left: 20px; /* Or use negative margin if needed */
+  padding-left: 20px; 
+  padding: 1rem;
+  max-width: 100vw;
+  overflow-x: hidden;/* Or use negative margin if needed */
 }
 
 .skill-grid {
@@ -42,8 +45,7 @@
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 20px;
   justify-items: start; /* Align each box to left */
-  margin-left: -40px;    /* Moves the grid to the left */
-  max-width: 100%;       /* Prevent overflow issues */
+         /* Prevent overflow issues */
 }
 
 .skill-card {
@@ -54,5 +56,14 @@
   width: 100%;             /* Let it stretch to fit column */
   box-sizing: border-box;  /* Respect padding within width */
 }
+  .logo-grid {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .logo-grid img {
+    width: 50px;
+    height: 50px;
+  }
 
 }
