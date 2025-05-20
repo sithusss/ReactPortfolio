@@ -87,7 +87,7 @@
  
 }
 .read-more {
-  margin: 5px 55px 0px 0px;
+  margin: 10px 55px 0px 0px;
   display: inline-block;
   font-size: 1rem;
   color: #0f3460;
@@ -95,7 +95,7 @@
   font-weight: bold;
   transition: color 0.3s;
   font-style: italic;
-  float: right;
+  float:right;
   padding:10px 15px;
   background-color:#ADD8E6;
   border-radius:5%;
