@@ -146,7 +146,17 @@ export default function AdminProjectPanel() {
               <option key={index} value={cat}>{cat}</option>
             ))}
           </select>
-          {['name', 'technologies', 'period', 'description', 'githubLink', 'liveLink'].map((field) => (
+          {['name', 'technologies', 'period', 'description', 'githubLink', 'liveLink'].map((field) => field === 'description' ? (
+              <textarea
+                key={field}
+                name={field}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+                rows={4} 
+              />
+            ) :(
             <input
               key={field}
               type="text"
@@ -223,7 +233,17 @@ export default function AdminProjectPanel() {
                   <option key={index} value={cat}>{cat}</option>
                 ))}
               </select>
-              {['name', 'technologies', 'period', 'description', 'githubLink', 'liveLink'].map((field) => (
+              {['name', 'technologies', 'period', 'description', 'githubLink', 'liveLink'].map((field) => field === 'description' ? (
+              <textarea
+                key={field}
+                name={field}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+                rows={4} 
+              />
+            ) :(
                 <input
                   key={field}
                   type="text"
