@@ -88,14 +88,14 @@
 }
 .read-more {
   margin: 10px 55px 0px 0px;
-  display: inline-block;
+  display:block;
   font-size: 1rem;
   color: #0f3460;
   cursor: pointer;
   font-weight: bold;
   transition: color 0.3s;
   font-style: italic;
-  float:right;
+  float:center;
   padding:10px 15px;
   background-color:#ADD8E6;
   border-radius:5%;
