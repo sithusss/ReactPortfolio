@@ -11,6 +11,7 @@ body {
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
+  background: linear-gradient(to right, #919fac, #f2f3f5);  /*gradient */
  
 }
 
@@ -19,7 +20,7 @@ body {
   flex: 1;
   max-width: 50%;
   position: relative;
-  clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 95%);
+  /*clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 95%);*/
   overflow: hidden;
 }
 
@@ -153,6 +154,56 @@ body {
   border: 2px solid #007bff;
 }
 
+.image-bar-section {
+  margin: 50px 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.image-bar {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  height: 350px;
+  margin-top: 10px;
+}
+
+.image-track {
+  display: flex;
+  width: calc(150px * 20); /* 10 images, repeated for infinite effect */
+  animation: scrollTrain 20s linear infinite;
+  margin-top: 30px;
+}
+
+.bar-image {
+  width: 250px;
+  height: 200px;
+  margin: 10px;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.bar-image:hover {
+  transform: scale(1.5);
+  z-index: 2;
+}
+
+/* Pause animation on hover */
+.image-bar:hover .image-track {
+  animation-play-state: paused;
+}
+
+/* Keyframe for train-like scroll */
+@keyframes scrollTrain {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
 
   @media screen and (max-width: 1085px) {
   .intro-container {
@@ -268,6 +319,13 @@ body {
     height: auto;
     
   }
+  .details-section {
+  padding: 16px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 
   .name {
     font-size: 2rem;
@@ -284,10 +342,12 @@ body {
   }
 
   .what-i-do-section {
-    max-width: 60%;
-    margin-left: 3.5%;
-    
-  }
+  width: 95%;
+  padding: 20px;
+  margin: 2%;
+  box-sizing: border-box;
+}
+
   .what-i-do-section h2 {
     font-size: 1.5rem;
     
@@ -314,6 +374,9 @@ body {
   .decorative-image1 {
     display: none;
   }
+  .image-bar-section {
+    display: none ;
+}
  
 
 }

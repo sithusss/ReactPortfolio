@@ -6,7 +6,8 @@ const educationSchema = new mongoose.Schema({
   name: { type: String, required: true },
   institute: { type: String, required: true },
   period: { type: String, required: true },
-  description: { type: String }
+  description: { type: String },
+  link:{type: String}
 });
 
 educationSchema.pre('save', async function (next) {

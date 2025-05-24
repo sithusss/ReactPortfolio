@@ -87,14 +87,20 @@
  
 }
 .read-more {
-  margin-top: 15px;
-  display: inline-block;
-  font-size: 14px;
+  margin: 10px 55px 0px 0px;
+  display:block;
+  font-size: 1rem;
   color: #0f3460;
   cursor: pointer;
   font-weight: bold;
   transition: color 0.3s;
+  font-style: italic;
+  float:center;
+  padding:10px 15px;
+  background-color:#ADD8E6;
+  border-radius:5%;
 }
+
 
 .read-more:hover {
   color: #e94560;
@@ -107,6 +113,8 @@
 
   .edu-container h1 {
     font-size: 36px;
+    position: relative;
+    z-index: 2;
   }
 
   .edu-container h2 {
@@ -157,6 +165,8 @@
   .edu-container h1 {
     font-size: 28px;
     margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
   }
 
   .edu-container h2 {
@@ -178,5 +188,6 @@
 
   .read-more {
     font-size: 13px;
+    
   }
 }

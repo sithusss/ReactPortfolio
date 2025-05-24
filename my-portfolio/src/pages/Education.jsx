@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 import '../styles/Education.css';
 import backgroundImage1 from '../assets/images/bg5.jpg';
 import backgroundImage2 from '../assets/images/bg6.jpg';
+import {FaExternalLinkAlt } from 'react-icons/fa';
 
 const Education = () => {
   const [educationData, setEducationData] = useState([]);
@@ -71,13 +72,23 @@ const Education = () => {
                   <h3>{item.name}</h3>
                   <p className="edu-meta">{item.period} | {item.institute}</p>
                   <p className="edu-description">{item.description}</p>
+                  <div className="links">
+                    <a href={item.link || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`link-icon ${!item.link ? 'disabled' : ''}`}
+                      onClick={e => !item.link && e.preventDefault()}>                            
+                    <FaExternalLinkAlt />
+                    </a>
+                  </div>
                 </div>
+                
               ))}
             </div>
 
             {items.length > 3 && (
               <div className="read-more" onClick={() => toggleReadMore(category)}>
-                {isExpanded ? 'Show Less' : 'Read More'}
+                {isExpanded ? 'Show Less...' : 'Read More...'}
               </div>
             )}
           </section>
